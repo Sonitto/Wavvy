@@ -5,17 +5,11 @@ import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
-import android.viewbinding.ViewBinding
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
+import androidx.viewbinding.ViewBinding
 
-/**
- * description ： Activity的基础类
- * author : HI-IR
- * email : qq2420226433@outlook.com
- * date : 2025/7/13 09:58
- */
 abstract class BaseActivity<VB : ViewBinding>: AppCompatActivity() {
     protected val binding: VB by lazy {
         getViewBinding()
@@ -37,8 +31,6 @@ abstract class BaseActivity<VB : ViewBinding>: AppCompatActivity() {
         }
     }
 
-
-    //沉浸式任务栏
     private fun doTransparentTaskbar() {
         val window = this.window
         val decorView = window.decorView
