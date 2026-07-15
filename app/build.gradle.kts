@@ -8,6 +8,9 @@ android {
     compileSdk {
         version = release(36)
     }
+    viewBinding{
+        enable=true
+    }
 
     defaultConfig {
         applicationId = "com.example.wavvy"
@@ -44,6 +47,10 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(project(":lib_base"))
+    implementation(project(":lib_database"))
+    implementation(project(":lib_net"))
+    implementation(project(":lib_route"))
+    implementation(project(":module_home"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_my_love"
+        android:icon="@drawable/drawer_hollow"
+        android:title="我的喜欢"/>
+
+    <item android:id="@+id/menu_cloud"
+        android:icon="@drawable/drawer_cloud"
+        android:title="我的云盘"/>
+
+    <item android:id="@+id/menu_follow"
+        android:icon="@drawable/drawer_follow"
+        android:title="我的关注"/>
+
+    <item android:id="@+id/menu_exit"
+        android:icon="@drawable/drawer_exit"
+        android:title="退出登录"/>
+</menu>
