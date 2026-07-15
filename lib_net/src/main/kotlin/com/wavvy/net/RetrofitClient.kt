@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
  * @Desc       : 
  */
 object RetrofitClient{
-private const val BASE_URL="11111"
+private const val BASE_URL="https://music.generalsio.top/"
 private val okHttpClient = OkHttpClient.Builder()
         .callTimeout(300, TimeUnit.SECONDS)
         .connectTimeout(10, TimeUnit.SECONDS)

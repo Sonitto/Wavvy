@@ -10,19 +10,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Wavvy">
+        android:theme="@style/Base.Theme.Wavvy">
+
         <activity
-            android:name=".base.BaseActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.example.module.home.home.HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.example.module.home.home.MainActivity"
+            android:name="com.example.wavvy.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
