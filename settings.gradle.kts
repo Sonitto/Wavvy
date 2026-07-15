@@ -23,3 +23,6 @@ rootProject.name = "Wavvy"
 include(":app")
 include(":lib_base")
 include(":lib_database")
+include(":lib_net")
+include(":lib_route")
+include(":module_home")

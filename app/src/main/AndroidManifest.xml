@@ -15,10 +15,10 @@
             android:name=".base.BaseActivity"
             android:exported="false" />
         <activity
-            android:name=".home.HomeActivity"
+            android:name="com.example.module.home.activity.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.module.home.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
