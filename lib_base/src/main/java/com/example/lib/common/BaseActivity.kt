@@ -15,7 +15,7 @@ abstract class BaseActivity<VB : ViewBinding>: AppCompatActivity() {
         getViewBinding()
     }
 
-    //用于获取ViewBinding
+
     protected abstract fun getViewBinding(): VB
 
 
@@ -41,13 +41,11 @@ abstract class BaseActivity<VB : ViewBinding>: AppCompatActivity() {
     }
 
 
-    /**
-     * 注册点击事件
-     */
+
     abstract fun initEvent()
 
 
-    //检查手机网络连接情况
+
     fun isInternetAvailable(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = cm.activeNetwork ?: return false
