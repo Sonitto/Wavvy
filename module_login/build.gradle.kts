@@ -14,7 +14,7 @@ android {
     defaultConfig {
         minSdk = 26
 
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -37,13 +37,12 @@ android {
 }
 
 dependencies {
-    implementation(libs.appcompat.v7)
+
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
     implementation(project(":lib_base"))
-    androidTestImplementation(libs.runner)
-    androidTestImplementation(libs.espresso.core)
+
 }
