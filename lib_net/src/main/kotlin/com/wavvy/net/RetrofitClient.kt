@@ -25,7 +25,6 @@ private val okHttpClient = OkHttpClient.Builder()
         .baseUrl(BASE_URL)
         .client(com.wavvy.net.RetrofitClient.okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .build()
     fun <T> create(serviceClass: Class<T>): T = com.wavvy.net.RetrofitClient.retrofit.create(serviceClass)
 }

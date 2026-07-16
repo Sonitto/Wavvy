@@ -37,8 +37,7 @@ abstract class BaseFragment <VB: ViewBinding>: Fragment(){
     abstract fun observeData()
     override fun onDestroyView() {
         super.onDestroyView()
-        //保证binding变量的有效生命周期是在onCreateView()函数和onDestroyView()函数之间
-        _binding = null//置空_binding
+        _binding = null
     }
 
 
