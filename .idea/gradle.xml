@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/module_login" />
             <option value="$PROJECT_DIR$/module_musicPlayer" />
             <option value="$PROJECT_DIR$/module_seek" />
+            <option value="$PROJECT_DIR$/module_tophome" />
           </set>
         </option>
       </GradleProjectSettings>
