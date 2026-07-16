@@ -12,7 +12,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        //强制使导航栏tab不被系统默认主题上色
+        binding.navHome.itemIconTintList = null
+        binding.navHome.itemRippleColor = null
         }
 
     override fun initEvent() {
