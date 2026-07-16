@@ -4,11 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.module_seek"
+    namespace = "com.example.module.login"
     compileSdk {
         version = release(36)
     }
-
+    viewBinding{
+        enable=true
+    }
     defaultConfig {
         minSdk = 26
 
@@ -35,13 +37,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":lib_net"))
-    implementation(libs.androidx.core.ktx)
+
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(project(":lib_base"))
+
 }

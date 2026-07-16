@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -39,6 +40,11 @@ android {
         jvmTarget = "11"
     }
 }
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.name)
+    }
+}
 
 dependencies {
     implementation(libs.androidx.core.ktx)
@@ -51,6 +57,10 @@ dependencies {
     implementation(project(":lib_net"))
     implementation(project(":lib_route"))
     implementation(project(":module_home"))
+    implementation(project(":module_login"))
+    implementation(project(":module_musicPlayer"))
+    implementation(libs.arouter.api)
+    kapt(libs.arouter.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
