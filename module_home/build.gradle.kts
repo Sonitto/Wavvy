@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.material)
     implementation(project(":lib_base"))
     implementation(project(":lib_route"))
+    implementation(project(":module_login"))
     implementation(libs.arouter.api)
     kapt(libs.arouter.compiler)
     testImplementation(libs.junit)
