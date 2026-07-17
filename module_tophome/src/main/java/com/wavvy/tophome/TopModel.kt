@@ -19,8 +19,16 @@ class TopModel {
     }catch(e:Exception){
         Result.failure(e)
     }
+    //轮播图
     suspend fun fetchBannerData(): Result<BannerData> =try {
         val response=api.getBannerList()
+        Result.success(response)
+    }catch (e: Exception){
+        Result.failure(e)
+    }
+    //歌曲推荐
+    suspend fun fetchRecommendSongs(): Result<SongSeaData> =try {
+        val response=api.getRecommendSongs()
         Result.success(response)
     }catch (e: Exception){
         Result.failure(e)

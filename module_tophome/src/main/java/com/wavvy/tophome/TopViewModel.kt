@@ -16,13 +16,30 @@ import kotlinx.coroutines.launch
  */
 class TopViewModel: ViewModel(){
     private val topModel= TopModel()
+    //轮播图
     private val _bannerData= MutableLiveData<BannerData>()
     val bannerData: LiveData<BannerData> =_bannerData
+    //多元旋律海洋
+    private val _recommendSong= MutableLiveData<List<List<DailySongList>>>()
+    val recommendData: LiveData<List<List<DailySongList>>> =_recommendSong
+
     fun upBannerData(){
         viewModelScope.launch {
             val result=topModel.fetchBannerData()
             result.onSuccess { bannerData ->
                 _bannerData.value=bannerData
+            }
+            result.onFailure { exception ->
+                Log.d("网络请求失败", exception.toString())
+            }
+        }
+    }
+    fun upRecommendSong(){
+        viewModelScope.launch {
+            val result=topModel.fetchRecommendSongs()
+            result.onSuccess { songData->
+               val songsList=songData.data.dailySongs
+                _recommendSong.value=songsList.chunked(3)
             }
             result.onFailure { exception ->
                 Log.d("网络请求失败", exception.toString())

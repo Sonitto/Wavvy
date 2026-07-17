@@ -3,6 +3,9 @@
 
     <application>
         <activity
+            android:name="com.wavvy.seek.SeekResultActivity"
+            android:exported="false" />
+        <activity
             android:name="com.wavvy.seek.SeekActivity"
             android:exported="false" />
     </application>

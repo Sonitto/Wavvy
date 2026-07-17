@@ -15,5 +15,6 @@ interface NetService {
     suspend fun getDetails() : DetailData
     @GET("/banner")
     suspend fun getBannerList(@Query("type") type: Int = 1): BannerData
-
+    @GET("/recommend/songs")
+    suspend fun getRecommendSongs() : SongSeaData
 }
