@@ -3,7 +3,10 @@
 
     <application>
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.QrActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LoginActivity"
             android:exported="false" />
     </application>
 

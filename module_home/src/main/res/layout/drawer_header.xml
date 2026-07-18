@@ -7,7 +7,9 @@
     android:orientation="horizontal"
     android:gravity="center"
     android:padding="16dp"
-    android:background="#E6E9F0">
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@drawable/background">
 
     <ImageView
         android:id="@+id/avatar"
@@ -21,9 +23,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
+        android:layout_marginBottom="30dp"
         android:text="未登录"
+        android:maxEms="5"
         android:textSize="26sp"
         app:layout_constraintStart_toEndOf="@+id/avatar"
-        tools:layout_editor_absoluteY="32dp" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

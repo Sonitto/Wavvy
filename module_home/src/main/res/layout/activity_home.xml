@@ -6,7 +6,7 @@
     android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.module.home.home.HomeActivity">
+    tools:context="com.example.module.home.activity.HomeActivity">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_marginTop="20dp"
@@ -23,6 +23,7 @@
         >
 
         <ImageView
+            android:id="@+id/open_drawer"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="center"
@@ -152,5 +153,7 @@
         android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@drawable/background"
+        app:headerLayout="@layout/drawer_header"
         app:menu="@menu/drawer_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

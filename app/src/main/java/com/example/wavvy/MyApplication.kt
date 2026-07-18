@@ -3,6 +3,8 @@ package com.example.wavvy
 import android.app.Application
 import com.alibaba.android.arouter.BuildConfig
 import com.alibaba.android.arouter.launcher.ARouter
+import com.wavvy.net.CookieManager
+
 /**
  * description :初始化ARouter
  * author : Cherry77551
@@ -16,6 +18,7 @@ class MyApplication : Application(){
             ARouter.openDebug()
         }
         ARouter.init(this)
+        CookieManager.init(this)
     }
 
     override fun onTerminate() {
