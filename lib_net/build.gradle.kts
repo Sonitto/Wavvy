@@ -35,6 +35,7 @@ android {
 }
 
 dependencies {
+    api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     api("io.reactivex.rxjava3:rxjava:3.1.8")
     api("io.reactivex.rxjava3:rxandroid:3.0.2")
     api("com.squareup.retrofit2:adapter-rxjava3:2.9.0")

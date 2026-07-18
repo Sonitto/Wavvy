@@ -56,6 +56,17 @@
             android:text="搜索"/>
 
     </LinearLayout>
+    <TableLayout
+        android:id="@+id/tablelayout_seek_result"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_search_result"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:tabMode="scrollable"/>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp2_result_seek"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tablelayout_seek_result"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

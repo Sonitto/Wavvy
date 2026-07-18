@@ -39,10 +39,6 @@ android {
 
 dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation("com.google.code.gson:gson:2.10.1")
     implementation(project(":lib_net"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
