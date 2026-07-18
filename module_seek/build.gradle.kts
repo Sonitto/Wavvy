@@ -1,12 +1,11 @@
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
-    viewBinding {
-        enable = true
-    }
     namespace = "com.example.module_seek"
     compileSdk {
         version = release(36)
@@ -36,9 +35,17 @@ android {
         jvmTarget = "11"
     }
 }
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.name)
+    }
+}
 
 dependencies {
+    implementation(libs.arouter.api)
+    kapt(libs.arouter.compiler)
     implementation(project(":lib_net"))
+    implementation(project(":lib_route"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
