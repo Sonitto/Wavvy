@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.module.login.repo.GuestRepository
+import com.wavvy.net.CookieManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,17 +26,15 @@ class GuestViewModel : ViewModel(){
     //登陆状态成功？失败
     private val _loginSuccess = MutableStateFlow<Boolean>(false)
     val loginSuccess: StateFlow<Boolean> get() = _loginSuccess
-    //将cookie送出去保存
-    fun guestLogin(onSuccess: (String) -> Unit) {
+    fun guestLogin() {
         viewModelScope.launch {
             try {
                 _status.value = "正在登录..."
                 val response = repo.guestLogin()
                 if (response.code == 200) {
                     response.cookie?.let { cookie ->
-                        withContext(Dispatchers.Main) {
-                            onSuccess(cookie)
-                        }
+                        android.util.Log.d("UserInfo", "guest saved cookie: $cookie")
+                        CookieManager.saveCookie(cookie)
                     }
                     _status.value = "登录成功"
                     _loginSuccess.value = true

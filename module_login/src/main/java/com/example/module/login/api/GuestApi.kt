@@ -2,6 +2,7 @@ package com.example.module.login.api
 
 import com.example.module.login.data.Guest
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 /**

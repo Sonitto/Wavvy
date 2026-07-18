@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.module.login.repo.QrRepository
+import com.wavvy.net.CookieManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -38,7 +39,6 @@ class QrViewModel : ViewModel() {
                 _status.value = "二维码正在生成中……"
                 val key = repository.getQrKey().data.unikey
                 val qrBase = repository.createQr(key).data.qrimg
-                Log.d("QrDebug", "qring 长度: ${qrBase?.length}")
                 Log.d("QrDebug", "qring 前50字符: ${qrBase?.take(50)}")
                 //把文本解码成原始的字节数组，然后交给 Glide 显示成图片
                 if (qrBase != null) {
@@ -56,9 +56,9 @@ class QrViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 while (true) {
-                    delay(30000)
-                    val response = repository.checkQr(key).code
-                    when (response) {
+                    delay(3000)
+                    val response = repository.checkQr(key)
+                    when (response.code) {
                         800 -> {
                             _status.value="二维码已过期，请重试"
                             startQr()
@@ -67,6 +67,10 @@ class QrViewModel : ViewModel() {
                         802 -> _status.value="待确认…"
                         803 -> {_status.value="登陆成功"
                             _loginSuccess.value=true
+                            response.cookie?.let{
+                                Log.d("UserInfo", "qr saved cookie: $it")
+                                CookieManager.saveCookie(it)
+                            }
                         }
                     }
 

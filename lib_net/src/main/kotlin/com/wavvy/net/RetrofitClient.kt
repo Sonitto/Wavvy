@@ -15,11 +15,12 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitClient{
 private const val BASE_URL="https://music.generalsio.top/"
-private val okHttpClient = OkHttpClient.Builder()
+    private val okHttpClient = OkHttpClient.Builder()
         .callTimeout(300, TimeUnit.SECONDS)
         .connectTimeout(10, TimeUnit.SECONDS)
         .readTimeout(10, TimeUnit.SECONDS)
         .writeTimeout(10, TimeUnit.SECONDS)
+        .addInterceptor(CookieInterceptor())
         .build()
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

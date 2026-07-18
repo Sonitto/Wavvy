@@ -6,7 +6,7 @@
     android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.module.home.home.HomeActivity">
+    tools:context="com.example.module.home.activity.HomeActivity">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_marginTop="20dp"

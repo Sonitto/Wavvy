@@ -39,15 +39,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         binding.btnBack.setOnClickListener {
             ARouter.getInstance().build(RoutePath.HOME).navigation()
         }
-        //游客登录 将cookie保存本地
+        //游客登录
         binding.btnGuest.setOnClickListener {
-            lifecycleScope.launch {
-                guestVm.guestLogin { it ->
-                    getSharedPreferences("wavvy", Context.MODE_PRIVATE)
-                        .edit().putString("cookie", it).apply()
-                    Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_SHORT).show()
-                }
-            }
+            guestVm.guestLogin()
         }
         guestVm.status.observe(this) { text ->
             Toast.makeText(this@LoginActivity, text, Toast.LENGTH_SHORT).show()
