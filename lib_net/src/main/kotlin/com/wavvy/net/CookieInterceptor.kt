@@ -14,9 +14,11 @@ class CookieInterceptor : Interceptor {
         val request = chain.request()
         val cookie = CookieManager.getCookie()
         //如果本地有 Cookie，就在请求头里加上 Cookie: xxx
-        val newRequest = if (!cookie.isNullOrBlank()) {
+        //这里必须先清洗成标准 ";" 格式，否则网易云 ";;" 格式服务端解析不了
+        val cleanCookie = CookieUtil.cleanCookie(cookie)
+        val newRequest = if (!cleanCookie.isNullOrBlank()) {
             request.newBuilder()
-                .header("Cookie", cookie)
+                .header("Cookie", cleanCookie)
                 .build()
         } else {
             request
@@ -26,18 +28,28 @@ class CookieInterceptor : Interceptor {
         //获取服务器返回的新 Cookie
         val setCookies = response.headers("Set-Cookie")
         if (setCookies.isNotEmpty()) {
-            val existing = CookieManager.getCookie()
-                ?.split("; ")
-                ?.filter { it.isNotBlank() }
-                ?.toMutableSet() //方便去重
-                ?: mutableSetOf()//如果本地没 Cookie，创建一个空 Set
-            //把 Set-Cookie: name=value; Path=/ 截断，只取 name=value 部分
-            val newPairs = setCookies.map {
-                it.substringBefore(";") }
-                .filter { it.isNotBlank() }
-            //把新 Cookie 合并到已有的里
-            existing.addAll(newPairs)
-            CookieManager.saveCookie(existing.joinToString("; "))
+            val essentialCookies = listOf("MUSIC_A", "MUSIC_A_T", "MUSIC_R_T", "__csrf", "NMTID", "os")
+            val cookieMap = CookieUtil.parseCookie(CookieManager.getCookie()).toMutableMap()
+
+            // 合并服务器新返回的关键 Cookie
+            setCookies.forEach { cookie ->
+                val pair = cookie.trim().substringBefore(";").trim()
+                if (pair.contains("=")) {
+                    val name = pair.substringBefore("=")
+                    val value = pair.substringAfter("=")
+                    if (value.isNotBlank()) {
+                        cookieMap[name] = value
+                    }
+                }
+            }
+
+            // 只保留关键字段，其他字段可能很多但服务端不依赖
+            CookieManager.saveCookie(
+                cookieMap
+                    .filter { it.key in essentialCookies || it.key.startsWith("MUSIC_") }
+                    .map { "${it.key}=${it.value}" }
+                    .joinToString("; ")
+            )
         }
 
         return response

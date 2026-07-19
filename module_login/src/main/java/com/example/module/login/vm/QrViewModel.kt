@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.module.login.repo.QrRepository
 import com.wavvy.net.CookieManager
+import com.wavvy.net.CookieUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -62,22 +63,27 @@ class QrViewModel : ViewModel() {
                         800 -> {
                             _status.value="二维码已过期，请重试"
                             startQr()
+                            break
                         }
                         801 -> _status.value="等待扫码中…"
                         802 -> _status.value="待确认…"
                         803 -> {_status.value="登陆成功"
                             _loginSuccess.value=true
-                            response.cookie?.let{
-                                Log.d("UserInfo", "qr saved cookie: $it")
-                                CookieManager.saveCookie(it)
+                            response.cookie?.let { rawCookie ->
+                                CookieUtil.cleanCookie(rawCookie)?.let { cleanCookie ->
+                                    CookieManager.saveCookie(cleanCookie)
+                                }
                             }
+                            break
+                        }
                         }
                     }
 
-                }
-            } catch (e: Exception){
-                    _status.value = "出错了，${e.message}"
-                }
+                }catch (e: Exception){
+                _status.value = "出错了，${e.message}"
+            }
+            }
             }
         }
-    }
+    
+
