@@ -1,5 +1,9 @@
 package com.wavvy.tophome
 
+import com.wavvy.tophome.data.BannerData
+import com.wavvy.tophome.data.DetailData
+import com.wavvy.tophome.data.LoveSongData
+import com.wavvy.tophome.data.SongSeaData
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -11,10 +15,12 @@ import retrofit2.http.Query
  * @Desc       : 
  */
 interface NetService {
-    @GET("/toplist/detail")
+    @GET("toplist/detail")
     suspend fun getDetails() : DetailData
-    @GET("/banner")
+    @GET("banner")
     suspend fun getBannerList(@Query("type") type: Int = 1): BannerData
-    @GET("/recommend/songs")
+    @GET("recommend/songs")
     suspend fun getRecommendSongs() : SongSeaData
+    @GET("personalized")
+    suspend fun getLoveSong(): LoveSongData
 }

@@ -14,7 +14,7 @@ android {
     }
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -44,6 +44,7 @@ kapt {
 }
 
 dependencies {
+    implementation(project(":lib_base"))
     implementation(libs.arouter.api)
     kapt(libs.arouter.compiler)
     implementation(project(":lib_route"))

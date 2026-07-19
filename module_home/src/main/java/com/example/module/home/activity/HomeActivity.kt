@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib.common.BaseActivity
@@ -13,9 +14,18 @@ import com.example.module.home.activity.ViewModel.UserViewModel
 import com.example.module.home.databinding.ActivityHomeBinding
 import com.example.module.home.R
 import com.bumptech.glide.Glide
+import com.example.module.home.activity.adapter.HomeVpAdapter
 
 @Route(path = RoutePath.HOME)
 class HomeActivity : BaseActivity<ActivityHomeBinding>() {
+    //懒加载所有fragment
+    private val fragment by lazy{
+        val topClass = ARouter.getInstance().build(RoutePath.FRAG_TOP).navigation() as  Fragment
+        val findClass=ARouter.getInstance().build(RoutePath.FRAG_FIND).navigation() as Fragment
+        listOf(topClass,findClass)
+    }
+
+
     private val userVm: UserViewModel by viewModels()
     override fun getViewBinding(): ActivityHomeBinding = ActivityHomeBinding.inflate(layoutInflater)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +33,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         //强制使导航栏tab不被系统默认主题上色
         binding.navHome.itemIconTintList = null
         binding.navHome.itemRippleColor = null
+        val adapter = HomeVpAdapter(this, fragment)
+        binding.vp2.adapter=adapter
     }
 
     override fun onResume() {

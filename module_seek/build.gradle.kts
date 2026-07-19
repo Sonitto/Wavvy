@@ -1,4 +1,3 @@
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -6,9 +5,13 @@ plugins {
 }
 
 android {
+
     namespace = "com.example.module_seek"
     compileSdk {
         version = release(36)
+    }
+    viewBinding{
+        enable=true
     }
 
     defaultConfig {

@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/lib_database" />
             <option value="$PROJECT_DIR$/lib_net" />
             <option value="$PROJECT_DIR$/lib_route" />
+            <option value="$PROJECT_DIR$/module_find" />
             <option value="$PROJECT_DIR$/module_home" />
             <option value="$PROJECT_DIR$/module_login" />
             <option value="$PROJECT_DIR$/module_musicPlayer" />
