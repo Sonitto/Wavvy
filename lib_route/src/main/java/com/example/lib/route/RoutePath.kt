@@ -10,6 +10,5 @@ object RoutePath {
     const val FRAG_TOP="/top/fragment"
     const val MAIN="/app/main"
     const val HOME="/home/main"
-    const val QR="/login/qr"
     const val LOGIN="/login/main"
 }

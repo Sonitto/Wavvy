@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -33,6 +34,9 @@ android {
         jvmTarget = "11"
     }
 }
+kapt {
+    arguments { arg("AROUTER_MODULE_NAME", project.name) }
+}
 
 dependencies {
     implementation(libs.androidx.core.ktx)
@@ -41,4 +45,19 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(project(":lib_base"))
+    implementation(project(":lib_net"))
+    implementation(project(":lib_route"))
+    // ExoPlayer 播放
+    implementation("androidx.media3:media3-exoplayer:1.4.0")
+    implementation("androidx.media3:media3-session:1.4.0")
+    implementation("androidx.media3:media3-ui:1.4.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("androidx.activity:activity-ktx:1.9.3")
+    implementation("androidx.fragment:fragment-ktx:1.8.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation(libs.arouter.api)
+    kapt(libs.arouter.compiler)
+
 }
