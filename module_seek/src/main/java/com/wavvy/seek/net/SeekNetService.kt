@@ -1,6 +1,7 @@
-package com.wavvy.seek
+package com.wavvy.seek.net
 
 import com.wavvy.seek.data.MusicRankData
+import com.wavvy.seek.data.MvData
 import com.wavvy.seek.data.SeekLyricData
 import com.wavvy.seek.data.SeekSingerData
 import com.wavvy.seek.data.SingleData
@@ -13,7 +14,7 @@ import retrofit2.http.Query
  * @FileName   : SeekNetService
  * @Author     : lsj
  * @CreateTime : 2026/7/17 20:03
- * @Desc       : 
+ * @Desc       :
  */
 interface SeekNetService {
     //搜索
@@ -39,6 +40,10 @@ interface SeekNetService {
         @Query("keywords") keyword: String,
         @Query("type") type: Int
     ): SeekSingerData
+    suspend fun getMvData(
+        @Query("keywords") keyword: String,
+        @Query("type") type: Int
+    ): MvData
 //搜索面的榜单
     @GET("playlist/detail")
     suspend fun getMusicRank(

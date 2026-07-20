@@ -1,4 +1,4 @@
-package com.wavvy.seek
+package com.wavvy.seek.view
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

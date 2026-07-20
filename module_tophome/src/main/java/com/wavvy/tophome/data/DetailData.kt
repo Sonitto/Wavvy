@@ -1,4 +1,4 @@
-package com.wavvy.tophome.data
+ package com.wavvy.tophome.data
 
 import com.google.gson.annotations.SerializedName
 

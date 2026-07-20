@@ -45,6 +45,7 @@ kapt {
 }
 
 dependencies {
+    implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.arouter.api)
     kapt(libs.arouter.compiler)
     implementation(project(":lib_net"))

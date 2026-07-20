@@ -23,16 +23,6 @@ import okhttp3.internal.http2.Http2Reader
 
 @Route(path = RoutePath.FRAG_TOP)
 class TopFragment : BaseFragment<FragmentTopBinding>() {
-    private val viewModel by lazy {
-        ViewModelProvider(this)[TopViewModel::class.java]
-    }
-    private val bannerAdapter= BannerAdapter(requireContext())
-    private val loveSongAdapter by lazy {
-        LoveSongAdapter(requireContext())
-    }
-    private val songAdapter by lazy {
-        SongSeaAdapter(requireContext())
-    }
 
     private val handle= Handler(Looper.getMainLooper())
     private val scrollRunnable = object : Runnable{
@@ -50,11 +40,21 @@ class TopFragment : BaseFragment<FragmentTopBinding>() {
     override fun getViewBinding(): FragmentTopBinding {
         return  FragmentTopBinding.inflate(layoutInflater)
     }
-
-
     override fun initEvent() {
-        TODO("Not yet implemented")
+        initView()
     }
+
+    private val viewModel by lazy {
+        ViewModelProvider(this)[TopViewModel::class.java]
+    }
+    private val bannerAdapter= BannerAdapter(requireContext())
+    private val loveSongAdapter by lazy {
+        LoveSongAdapter(requireContext())
+    }
+    private val songAdapter by lazy {
+        SongSeaAdapter(requireContext())
+    }
+
 
     override fun observeData() {
         viewModel.apply {

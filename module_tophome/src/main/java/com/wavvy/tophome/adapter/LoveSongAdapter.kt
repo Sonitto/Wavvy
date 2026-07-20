@@ -46,7 +46,7 @@ class LoveSongAdapter(val context: Context): ListAdapter<LoveSong, LoveSongAdapt
         holder: ViewHolder,
         position: Int
     ) {
-
+        holder.bind(getItem(position))
     }
 
     inner class ViewHolder(binding: ItemLovedSongBinding): RecyclerView.ViewHolder(binding.root){

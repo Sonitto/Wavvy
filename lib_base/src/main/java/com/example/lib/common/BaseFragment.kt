@@ -8,13 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-/*
- * @Module     : com.example.lib.common
- * @FileName   : BaseFragment
- * @Author     : lsj
- * @CreateTime : 2026/7/15 16:00
- * @Desc       : 
- */
+
 abstract class BaseFragment <VB: ViewBinding>: Fragment(){
     protected abstract fun getViewBinding():VB
     private var _binding: VB? = null
