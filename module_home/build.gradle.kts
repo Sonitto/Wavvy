@@ -51,6 +51,8 @@ dependencies {
     implementation(project(":lib_net"))
     implementation(project(":lib_route"))
     implementation(project(":module_login"))
+    implementation(project(":module_tophome"))
+    implementation(project(":module_find"))
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.fragment:fragment-ktx:1.8.0")
     implementation(libs.arouter.api)

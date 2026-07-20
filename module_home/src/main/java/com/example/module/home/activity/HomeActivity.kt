@@ -1,5 +1,6 @@
 package com.example.module.home.activity
 
+import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,6 +16,8 @@ import com.example.module.home.databinding.ActivityHomeBinding
 import com.example.module.home.R
 import com.bumptech.glide.Glide
 import com.example.module.home.activity.adapter.HomeVPAdapter
+import com.example.module_find.BlankFragment
+import com.wavvy.tophome.TopFragment
 
 @Route(path = RoutePath.HOME)
 class HomeActivity : BaseActivity<ActivityHomeBinding>() {
@@ -80,7 +83,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     fun setupVP(){
         val VpAdapter= HomeVPAdapter(this)
         VpAdapter.setFragments(
-            listOf(
+            listOf<Fragment>(
+                TopFragment(),
                 MyFragment()
             )
         )

@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 /**
- * description : Home 页面 ViewPager2 适配器
+ * description : Home页面ViewPager2适配器
  * author : Cherry77551
  * date : 2026/7/18
  */

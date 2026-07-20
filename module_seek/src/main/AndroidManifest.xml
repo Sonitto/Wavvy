@@ -3,10 +3,10 @@
 
     <application>
         <activity
-            android:name="com.wavvy.seek.SeekResultActivity"
+            android:name="com.wavvy.seek.view.SeekResultActivity"
             android:exported="false" />
         <activity
-            android:name="com.wavvy.seek.SeekActivity"
+            android:name="com.wavvy.seek.view.SeekActivity"
             android:exported="false" />
     </application>
 
