@@ -1,9 +1,9 @@
-package com.example.module_musicplayer.repository
+package com.example.musicPlayer.repository
 
-import com.example.module_musicplayer.api.PlaylistApi
-import com.example.module_musicplayer.data.Playlist
-import com.example.module_musicplayer.data.Record
-import com.example.module_musicplayer.data.Song
+import com.example.musicPlayer.api.PlaylistApi
+import com.example.musicPlayer.data.Playlist
+import com.example.musicPlayer.data.Record
+import com.example.musicPlayer.data.Song
 import com.wavvy.net.RetrofitClient
 
 /**

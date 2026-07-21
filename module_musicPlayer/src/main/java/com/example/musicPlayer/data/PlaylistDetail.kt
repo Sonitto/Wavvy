@@ -1,4 +1,4 @@
-package com.example.module_musicplayer.data
+package com.example.musicPlayer.data
 
 /**
  * description :歌单里面的歌曲

@@ -1,8 +1,8 @@
-package com.example.module_musicplayer.api
+package com.example.musicPlayer.api
 
-import com.example.module_musicplayer.data.PlaylistDetailResponse
-import com.example.module_musicplayer.data.PlaylistResponse
-import com.example.module_musicplayer.data.RecordResponse
+import com.example.musicPlayer.data.PlaylistDetailResponse
+import com.example.musicPlayer.data.PlaylistResponse
+import com.example.musicPlayer.data.RecordResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -2,10 +2,11 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     id("org.jetbrains.kotlin.kapt")
+    id("kotlin-parcelize")
 }
 
 android {
-    namespace = "com.example.module_musicplayer"
+    namespace = "com.example.module.musicplayer"
     compileSdk {
         version = release(36)
     }
@@ -49,6 +50,8 @@ dependencies {
     implementation(project(":lib_net"))
     implementation(project(":lib_route"))
     // ExoPlayer 播放
+    implementation("com.google.android.exoplayer:exoplayer-core:2.19.1")
+    implementation("androidx.media:media:1.7.0")
     implementation("androidx.media3:media3-exoplayer:1.4.0")
     implementation("androidx.media3:media3-session:1.4.0")
     implementation("androidx.media3:media3-ui:1.4.0")

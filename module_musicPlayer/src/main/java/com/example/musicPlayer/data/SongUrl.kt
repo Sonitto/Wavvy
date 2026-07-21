@@ -1,4 +1,4 @@
-package com.example.module_musicplayer.data
+package com.example.musicPlayer.data
 
 /**
  * description :歌曲播放路径
