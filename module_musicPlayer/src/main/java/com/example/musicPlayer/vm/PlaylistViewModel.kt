@@ -10,7 +10,7 @@ import com.example.musicPlayer.repository.PlaylistRepository
 import kotlinx.coroutines.launch
 
 /**
- * description :
+ * description :歌单的vm
  * author : Cherry77551
  * date : 2026/7/21 22:35
  */

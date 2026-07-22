@@ -11,4 +11,5 @@ object RoutePath {
     const val MAIN="/app/main"
     const val HOME="/home/main"
     const val LOGIN="/login/main"
+    const val PLAYLIST="/player/list"
 }

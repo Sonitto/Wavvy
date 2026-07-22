@@ -1,8 +1,10 @@
 package com.example.module.home.activity
 
 import androidx.fragment.app.activityViewModels
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.example.lib.common.BaseFragment
+import com.example.lib.route.RoutePath
 import com.example.module.home.R
 import com.example.module.home.activity.ViewModel.UserViewModel
 import com.example.module.home.databinding.FragmentMyBinding
@@ -35,7 +37,15 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
                 binding.imvAvatar.setImageResource(R.drawable.drawer_avatar)
             }
         }
-    }
+        //
+        binding.myLike.setOnClickListener {
+            ARouter.getInstance().build(RoutePath.PLAYLIST).withString("type","like").navigation()
+        }
+        binding.myHistory.setOnClickListener {
+            ARouter.getInstance().build(RoutePath.PLAYLIST).withString("type","history").navigation()
+        }
+        }
+
 
     override fun observeData() {
 

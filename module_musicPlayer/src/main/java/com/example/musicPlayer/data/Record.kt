@@ -11,6 +11,5 @@ data class RecordResponse(
 )
 
 data class Record(
-    val playCount: Int,
     val song: Song
 )

@@ -1,6 +1,7 @@
 package com.example.musicPlayer.util
 
 import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Bitmap
@@ -54,6 +55,12 @@ class MusicService: Service() {
         const val BROADCAST_SONG_CHANGE = "com.example.module.musicPlayer.SONG_CHANGE"
 
         var action: ((String) -> Unit)? = null
+        fun play(context: Context, song: Song) {
+            val intent = Intent(context, MusicService::class.java).apply {
+                action = ACTION_PLAY
+                putExtra("song", song)
+            }
+        }
     }
 
     override fun onCreate() {
