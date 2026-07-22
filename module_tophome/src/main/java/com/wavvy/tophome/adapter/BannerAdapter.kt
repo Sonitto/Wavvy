@@ -23,7 +23,7 @@ class BannerAdapter(private val context: Context):
                 oldItem: BannerList,
                 newItem: BannerList
             ): Boolean {
-                return oldItem.targetType == newItem.targetType
+                return oldItem.targetId == newItem.targetId
             }
 
             override fun areContentsTheSame(
@@ -60,7 +60,14 @@ class BannerAdapter(private val context: Context):
         private var currentData : BannerList?=null
         fun bind(data: BannerList){
             currentData=data
-            Glide.with(context).load(data.imageUrl).into(imageBanner)
+            Glide.with(context).load(data.pic).into(imageBanner)
+        }
+        init {
+            imageBanner.setOnClickListener {
+                val realPos =adapterPosition% currentList.size
+                val item = getItem(realPos)
+                onItemClick?.invoke(item)
+            }
         }
     }
 

@@ -5,6 +5,9 @@ plugins {
 }
 
 android {
+    viewBinding{
+        enable=true
+    }
     namespace = "com.example.module_find"
     compileSdk {
         version = release(36)
@@ -41,8 +44,10 @@ kapt {
 }
 
 dependencies {
+    implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.arouter.api)
     kapt(libs.arouter.compiler)
+    implementation(project(":lib_base"))
     implementation(project(":lib_net"))
     implementation(project(":lib_route"))
     implementation(libs.androidx.core.ktx)

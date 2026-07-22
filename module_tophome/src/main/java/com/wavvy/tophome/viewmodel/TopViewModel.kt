@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wavvy.tophome.data.BannerData
 import com.wavvy.tophome.data.DailySongList
+import com.wavvy.tophome.data.LoveSongData
 import com.wavvy.tophome.model.TopModel
 import kotlinx.coroutines.launch
 
@@ -25,7 +26,9 @@ class TopViewModel: ViewModel(){
     //多元旋律海洋
     private val _recommendSong= MutableLiveData<List<List<DailySongList>>>()
     val recommendData: LiveData<List<List<DailySongList>>> =_recommendSong
-
+    //大家都喜欢
+    private val _lovedSong= MutableLiveData<LoveSongData>()
+    val loveSongData: LiveData<LoveSongData> =_lovedSong
     fun upBannerData(){
         viewModelScope.launch {
             val result=topModel.fetchBannerData()
@@ -43,6 +46,18 @@ class TopViewModel: ViewModel(){
             result.onSuccess { songData->
                val songsList=songData.data.dailySongs
                 _recommendSong.value=songsList.chunked(3)
+            }
+            result.onFailure { exception ->
+                Log.d("网络请求失败", exception.toString())
+            }
+        }
+    }
+    fun upLoveSongData(){
+        viewModelScope.launch {
+            val result=topModel.fetchLoveSong()
+            result.onSuccess { data->
+                _lovedSong.value=data
+
             }
             result.onFailure { exception ->
                 Log.d("网络请求失败", exception.toString())

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="background">#000000</color>
     <color name="search">#E7E8EC</color>
+    <color name="text">#60a5fa</color>
+    <color name="whiteText">#FFFFFF</color>
 </resources>

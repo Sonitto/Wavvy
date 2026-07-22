@@ -46,6 +46,8 @@ kapt {
 dependencies {
     implementation(project(":lib_base"))
     implementation(libs.arouter.api)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
     kapt(libs.arouter.compiler)
     implementation(project(":lib_route"))
     implementation("com.github.bumptech.glide:glide:4.16.0")
