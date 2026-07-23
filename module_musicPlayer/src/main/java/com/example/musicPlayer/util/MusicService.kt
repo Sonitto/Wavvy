@@ -138,23 +138,26 @@ class MusicService: Service() {
                 player.setMediaItem(mediaItem)
                 player.prepare()
                 player.play()
+                val bitmap = withContext(Dispatchers.IO) {
+                    try {
+                        Glide.with(this@MusicService)
+                            .asBitmap()
+                            .load(song.coverUrl())
+                            .submit(300, 300)
+                            .get()
+                    } catch (e: Exception) {
+                        null
+                    }
+                }
+                updateNotification(bitmap, song.name, song.artistNames())
+                sendBroadcast(Intent(BROADCAST_PROGRESS).apply {
+                    putExtra("position", player.currentPosition)
+                    putExtra("duration", player.duration)
+                    putExtra("isPlaying", player.isPlaying)
+                })
             } catch (e: Exception) {
                 Log.e("MusicService", "playSong failed: ${song.id} ${song.name}", e)
             }
-        }
-        scope.launch {
-            val bitmap = withContext(Dispatchers.IO) {
-                try {
-                    Glide.with(this@MusicService)
-                        .asBitmap()
-                        .load(song.coverUrl())
-                        .submit(300, 300)
-                        .get()
-                } catch (e: Exception) {
-                    null
-                }
-            }
-            updateNotification(bitmap, song.name, song.artistNames())
         }
         sendBroadcast(Intent(BROADCAST_SONG_CHANGE).putExtra("song", song))
         startProgressUpdates()
@@ -217,7 +220,7 @@ class MusicService: Service() {
     //处理act
     private fun handleAction(act: String){
         when(act){
-            ACTION_PLAY_PAUSE ->{
+            ACTION_PLAY_PAUSE -> {
                 if (player.isPlaying) {
                     player.pause()
                     stopProgressUpdates()
@@ -225,7 +228,12 @@ class MusicService: Service() {
                     player.play()
                     startProgressUpdates()
                 }
-                currentSong?.let{it ->
+                sendBroadcast(Intent(BROADCAST_PROGRESS).apply {
+                    putExtra("position", player.currentPosition)
+                    putExtra("duration", player.duration)
+                    putExtra("isPlaying", player.isPlaying)
+                })
+                currentSong?.let { it ->
                     scope.launch {
                         val bitmap = withContext(Dispatchers.IO) {
                             try {
