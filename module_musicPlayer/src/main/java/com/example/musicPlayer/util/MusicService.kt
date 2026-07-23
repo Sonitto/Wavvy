@@ -6,8 +6,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Bitmap
 import android.os.Build
+import android.util.Log
 import android.os.IBinder
-import android.support.v4.media.MediaBrowserCompat
 import androidx.core.app.NotificationCompat
 
 import androidx.media3.common.MediaItem
@@ -18,7 +18,6 @@ import com.bumptech.glide.Glide
 import com.example.module.musicplayer.R
 import com.example.musicPlayer.data.Song
 import com.example.musicPlayer.repository.MusicRepository
-import com.google.android.exoplayer2.util.NotificationUtil.createNotificationChannel
 import kotlinx.coroutines.*
 import java.util.concurrent.Executors
 
@@ -44,6 +43,7 @@ class MusicService: Service() {
     private var currentSong: Song? = null
     private var songList: List<Song> = emptyList()
     private var currentIndex = -1
+    private var progressJob: Job? = null
 
     companion object {
         const val ACTION_PLAY = "com.example.module.musicPlayer.PLAY"
@@ -53,13 +53,16 @@ class MusicService: Service() {
         const val ACTION_PREV = "com.example.module.musicPlayer.PREV"
         const val ACTION_STOP = "com.example.module.musicPlayer.STOP"
         const val BROADCAST_SONG_CHANGE = "com.example.module.musicPlayer.SONG_CHANGE"
+        const val BROADCAST_PROGRESS = "com.example.module.musicPlayer.PROGRESS"
 
         var action: ((String) -> Unit)? = null
-        fun play(context: Context, song: Song) {
+        fun play(context: Context, song: Song, list: List<Song>) {
             val intent = Intent(context, MusicService::class.java).apply {
                 action = ACTION_PLAY
                 putExtra("song", song)
+                putParcelableArrayListExtra("list", ArrayList(list))
             }
+            context.startForegroundService(intent)
         }
     }
 
@@ -129,12 +132,14 @@ class MusicService: Service() {
         currentSong = song
         scope.launch {
             try {
-                val mediaItem = MediaItem.fromUri(repo.getUrl(song.id)?.url.toString() ?: "")
+                val url = repo.getUrl(song.id)?.url
+                if (url.isNullOrEmpty()) return@launch
+                val mediaItem = MediaItem.fromUri(url)
                 player.setMediaItem(mediaItem)
                 player.prepare()
                 player.play()
             } catch (e: Exception) {
-                e.printStackTrace()
+                Log.e("MusicService", "playSong failed: ${song.id} ${song.name}", e)
             }
         }
         scope.launch {
@@ -152,6 +157,7 @@ class MusicService: Service() {
             updateNotification(bitmap, song.name, song.artistNames())
         }
         sendBroadcast(Intent(BROADCAST_SONG_CHANGE).putExtra("song", song))
+        startProgressUpdates()
     }
     //更新通知栏
     private fun updateNotification(bitmap: Bitmap?, title: String, subtitle: String) {
@@ -171,7 +177,7 @@ class MusicService: Service() {
         val prev = PendingIntent.getBroadcast(this, 2, Intent(ACTION_PREV), flags)
         val stop = PendingIntent.getBroadcast(this, 3, Intent(ACTION_STOP), flags)
     return NotificationCompat.Builder(this,channelId)
-        .setSmallIcon(R.drawable.ic_play)
+        .setSmallIcon(R.drawable.ic_cd)
         .setContentTitle(title)
         .setContentText(subtitle)
         .setLargeIcon(bitmap)
@@ -212,7 +218,13 @@ class MusicService: Service() {
     private fun handleAction(act: String){
         when(act){
             ACTION_PLAY_PAUSE ->{
-                if(player.isPlaying) player.play() else player.pause()
+                if (player.isPlaying) {
+                    player.pause()
+                    stopProgressUpdates()
+                } else {
+                    player.play()
+                    startProgressUpdates()
+                }
                 currentSong?.let{it ->
                     scope.launch {
                         val bitmap = withContext(Dispatchers.IO) {
@@ -237,6 +249,12 @@ class MusicService: Service() {
                 stopForeground(STOP_FOREGROUND_REMOVE)
                 stopSelf()
             }
+            else -> {
+            val prefix = "seek:"
+            if (act.startsWith(prefix)) {
+                act.removePrefix(prefix).toLongOrNull()?.let { player.seekTo(it) }
+            }
+        }
         }
     }
     //创建通知渠道
@@ -248,6 +266,24 @@ class MusicService: Service() {
                 "音乐播放",
                 NotificationManager.IMPORTANCE_LOW //通知优先级低
             ).apply { setShowBadge(false) })//不在应用图标上显示小红点/角标
+    }
+    private fun startProgressUpdates() {
+        progressJob?.cancel()
+        progressJob = scope.launch {
+            while (isActive) {
+                val intent = Intent(BROADCAST_PROGRESS).apply {
+                    putExtra("position", player.currentPosition)
+                    putExtra("duration", player.duration)
+                    putExtra("isPlaying", player.isPlaying)
+                }
+                sendBroadcast(intent)
+                delay(500)
+            }
+        }
+    }
+
+    private fun stopProgressUpdates() {
+        progressJob?.cancel()
     }
 }
 

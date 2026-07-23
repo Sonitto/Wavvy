@@ -50,6 +50,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
             }
             true
         }
+        binding.search.setOnClickListener {
+            ARouter.getInstance().build(RoutePath.FRAG_FIND)
+        }
 
         // 整个 header 点击
         val headerView = binding.drawer.getHeaderView(0)

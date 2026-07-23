@@ -20,10 +20,9 @@ class PlaylistRepository {
         return listApi.getPlaylist(uid).playlist
             ?.firstOrNull { it.specialType == 5}
     }
-    //我喜欢歌单的歌曲
     suspend fun getLikeSongs(uid: Long): List<Song>{
         val like=getLikeList(uid) ?:return emptyList()
-        return listApi.getDetail(like.id).playlist?.tracks ?:emptyList()
+        return listApi.getDetail(like.id).songs ?:emptyList()
     }
     //播放记录
     suspend fun getRecord(uid: Long): List<Record>{

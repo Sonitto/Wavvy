@@ -3,7 +3,14 @@
 
     <application>
         <activity
+            android:name="com.example.musicPlayer.activity.PlayerActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.musicPlayer.activity.PlaylistActivity"
+            android:exported="false" />
+        <service
+            android:name="com.example.musicPlayer.util.MusicService"
+            android:foregroundServiceType="mediaPlayback"
             android:exported="false" />
     </application>
 

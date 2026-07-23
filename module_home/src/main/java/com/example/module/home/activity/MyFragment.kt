@@ -1,19 +1,29 @@
 package com.example.module.home.activity
 
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.activityViewModels
-import com.alibaba.android.arouter.launcher.ARouter
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.Glide
 import com.example.lib.common.BaseFragment
 import com.example.lib.route.RoutePath
 import com.example.module.home.R
 import com.example.module.home.activity.ViewModel.UserViewModel
 import com.example.module.home.databinding.FragmentMyBinding
+import com.example.musicPlayer.activity.PlaylistActivity
+import com.example.musicPlayer.util.UidManager
 
-
+@Route(path = RoutePath.MY)
 class MyFragment : BaseFragment<FragmentMyBinding>() {
     // 共享 Activity 作用域的 UserViewModel，这样 HomeActivity 登录后加载的数据能同步到 "我的" 页面
     private val userVm: UserViewModel by activityViewModels()
     override fun getViewBinding(): FragmentMyBinding = FragmentMyBinding.inflate(layoutInflater)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("PlaylistVM", "uid = ${UidManager.getUid()}")
+    }
 
     override fun initEvent() {
         userVm.profile.observe(viewLifecycleOwner) { profile ->
@@ -37,12 +47,16 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
                 binding.imvAvatar.setImageResource(R.drawable.drawer_avatar)
             }
         }
-        //
+        //跳转
         binding.myLike.setOnClickListener {
-            ARouter.getInstance().build(RoutePath.PLAYLIST).withString("type","like").navigation()
+            val intent = Intent(requireContext(), PlaylistActivity::class.java)
+            intent.putExtra("type", "like")
+            startActivity(intent)
         }
         binding.myHistory.setOnClickListener {
-            ARouter.getInstance().build(RoutePath.PLAYLIST).withString("type","history").navigation()
+            val intent = Intent(requireContext(), PlaylistActivity::class.java)
+            intent.putExtra("type", "history")
+            startActivity(intent)
         }
         }
 
