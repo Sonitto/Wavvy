@@ -60,7 +60,7 @@ class MusicRankAdapter(private val context: Context): ListAdapter<Playlist, Musi
             var adapter= MusicRankListAdapter()
             rv.adapter=adapter
             rv.layoutManager=
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter.submitList(limitedTracks)
 
         }

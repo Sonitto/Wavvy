@@ -11,6 +11,7 @@ import com.example.module_seek.databinding.ActivityMvPlayBinding
 
 @Route(path = RoutePath.MV)
 class MvPlayActivity : BaseActivity<ActivityMvPlayBinding>() {
+    @JvmField
     @Autowired(name = "id")
     var id: Long? = null
     private lateinit var player: ExoPlayer

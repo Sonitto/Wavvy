@@ -6,13 +6,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.lib.common.BaseActivity
+import com.example.lib.route.RoutePath
 import com.example.module_seek.R
 import com.example.module_seek.databinding.ActivitySeekResultBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.wavvy.seek.adapter.SeekResultVp2Adapter
-
+@Route(path = RoutePath.FINISH)
 class SeekResultActivity : BaseActivity<ActivitySeekResultBinding>(){
+    @JvmField
+    @Autowired(name = "keyword")
     var keyword: String? = null
     private var mediator: TabLayoutMediator? = null
     private val tabTitles = arrayOf("歌词", "单曲", "歌手", "mv", "歌单")
