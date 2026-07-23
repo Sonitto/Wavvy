@@ -6,6 +6,7 @@ package com.example.lib.route
  * date : 2026/7/16 12:54
  */
 object RoutePath {
+    const val MV="/seek/mv"
     const val SEEK="/seek/seek"
     const val WEB="/top/web"
     const val FRAG_FIND="/find/fragment"

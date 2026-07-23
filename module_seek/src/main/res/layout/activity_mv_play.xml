@@ -6,7 +6,7 @@
     android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wavvy.seek.view.MvActivity">
+    tools:context="com.wavvy.seek.view.MvPlayActivity">
     <androidx.media3.ui.PlayerView
         android:id="@+id/mv_player"
         android:layout_width="match_parent"

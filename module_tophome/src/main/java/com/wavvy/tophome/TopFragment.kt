@@ -1,30 +1,21 @@
 package com.wavvy.tophome
 
-import android.R.attr.banner
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib.common.BaseFragment
 import com.example.lib.route.RoutePath
-import com.example.module_tophome.R
 import com.example.module_tophome.databinding.FragmentTopBinding
 import com.wavvy.tophome.adapter.BannerAdapter
 import com.wavvy.tophome.adapter.LoveSongAdapter
 import com.wavvy.tophome.adapter.SongSeaAdapter
-import com.wavvy.tophome.data.BannerList
 import com.wavvy.tophome.viewmodel.TopViewModel
-import okhttp3.internal.http2.Http2Reader
 
 @Route(path = RoutePath.FRAG_TOP)
 class TopFragment : BaseFragment<FragmentTopBinding>() {
@@ -56,7 +47,6 @@ class TopFragment : BaseFragment<FragmentTopBinding>() {
             Log.d("banner_click", "点击触发，url = ${bannerList.url}")
             val targetPath = RoutePath.WEB
             Log.e("ROUTE_TEST", "【目标跳转路径】$targetPath")
-            // 替换为带 NavigationCallback 监听的跳转
             ARouter.getInstance()
                 .build(RoutePath.WEB)
                 .withString("url", bannerList.url)

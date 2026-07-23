@@ -3,7 +3,9 @@ package com.wavvy.seek.view
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.lib.common.BaseFragment
+import com.example.lib.route.RoutePath
 import com.example.module_seek.databinding.FragmentMvBinding
 import com.wavvy.seek.adapter.SeekMvAdapter
 import com.wavvy.seek.viewmodel.SeekResultViewModel
@@ -42,6 +44,12 @@ class MvFragment : BaseFragment<FragmentMvBinding>(){
     fun initView(){
         binding.rvMv.adapter=mvAdapter
         binding.rvMv.layoutManager= LinearLayoutManager(requireContext())
+        mvAdapter.onItemClick={mvData->
+            ARouter.getInstance()
+                .build(RoutePath.MV)
+                .withLong("id", mvData.id.toLong())
+                .navigation(requireContext())
+        }
     }
     //
     companion object{

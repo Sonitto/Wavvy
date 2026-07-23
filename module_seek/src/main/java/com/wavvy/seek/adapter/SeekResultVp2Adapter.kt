@@ -19,15 +19,7 @@ import com.wavvy.seek.view.SongListFragment
  */
 class SeekResultVp2Adapter (activity: FragmentActivity,private val keyword: String?) : FragmentStateAdapter(activity) {
 
-    private val fragments = mutableListOf<Fragment>()
-
-    fun setFragments(list: List<Fragment>) {
-        fragments.clear()
-        fragments.addAll(list)
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount(): Int = fragments.size
+    override fun getItemCount(): Int = 5
 //滑倒对应下标创建相应fragment
     override fun createFragment(position: Int): Fragment{
         return when(position) {

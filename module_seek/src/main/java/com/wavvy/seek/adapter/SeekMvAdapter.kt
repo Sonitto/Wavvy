@@ -34,6 +34,7 @@ class SeekMvAdapter(val context: Context): ListAdapter<Mv, SeekMvAdapter.ViewHol
     }
 
 }) {
+    var onItemClick:((Mv)-> Unit)?=null
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -56,6 +57,12 @@ class SeekMvAdapter(val context: Context): ListAdapter<Mv, SeekMvAdapter.ViewHol
             currentData=data
             tvMvName.text=data.name
             Glide.with(context).load(data.cover).into(ivMv)
+        }
+        init {
+            ivMv.setOnClickListener {
+                val item=getItem(bindingAdapterPosition)
+                onItemClick?.invoke(item)
+            }
         }
     }
 }

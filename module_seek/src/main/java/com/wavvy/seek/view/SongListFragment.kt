@@ -24,7 +24,7 @@ class SongListFragment : BaseFragment<FragmentSongListBinding>(){
         binding.rvSongList.adapter=songListAdapter
         binding.rvSongList.layoutManager= LinearLayoutManager(requireContext())
         keyword?.let {
-            viewModel.upSingleData(it)
+            viewModel.upSongListData(it)
         }
 
     }
@@ -43,8 +43,8 @@ class SongListFragment : BaseFragment<FragmentSongListBinding>(){
     }
     //储存搜索词，防止页面重建参数丢失
     companion object {
-        fun newInstance(keyword: String?): SingleFragment {
-            val fragment = SingleFragment()
+        fun newInstance(keyword: String?): SongListFragment {
+            val fragment = SongListFragment()
             fragment.arguments = Bundle().apply {
                 putString("keyword", keyword)
             }

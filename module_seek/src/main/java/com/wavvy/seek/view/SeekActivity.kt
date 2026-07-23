@@ -34,9 +34,18 @@ class SeekActivity : BaseActivity<ActivitySeekBinding>(){
             val playlistList = rankDataList.map { data -> data.playlist }
             rankVp2Adapter.submitList(playlistList)
         }
+
     }
     private fun initView(){
-        binding.vp2RecommendMusic.adapter=rankVp2Adapter
+        binding.apply {
+            vp2RecommendMusic.adapter=rankVp2Adapter
+
+            //
+
+        }
+
+    }
+    fun seekHistory(){
 
     }
 
