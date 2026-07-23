@@ -8,6 +8,7 @@ import android.util.Log
 import com.example.module.home.activity.data.Profile
 import com.example.module.home.activity.data.UserDetail
 import com.example.module.home.activity.repository.InfoRepository
+import com.example.musicPlayer.util.UidManager
 import kotlinx.coroutines.launch
 
 /**
@@ -32,12 +33,11 @@ class UserViewModel: ViewModel() {
                     Log.d("UserInfo", "uid is null, code=${accountRes.code}")
                     return@launch
                 }
+                UidManager.saveUid(uid)
                 val detailRes = repo.getDetail(uid)
-                Log.d("UserInfo", "detailRes: $detailRes")
                 val profile = detailRes.profile
                 if(profile != null) {
                     _profile.value = profile
-                    Log.d("UserInfo", "profile loaded: $profile")
                 } else {
                     Log.d("UserInfo", "profile is null")
                 }

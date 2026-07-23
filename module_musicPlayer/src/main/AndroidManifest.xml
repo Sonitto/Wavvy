@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <application>
+        <activity
+            android:name="com.example.musicPlayer.activity.PlayerActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.musicPlayer.activity.PlaylistActivity"
+            android:exported="false" />
+        <service
+            android:name="com.example.musicPlayer.util.MusicService"
+            android:foregroundServiceType="mediaPlayback"
+            android:exported="false" />
+    </application>
+
 </manifest>

@@ -52,6 +52,7 @@ dependencies {
     implementation(project(":lib_net"))
     implementation(project(":lib_base"))
     implementation(project(":lib_route"))
+    implementation(project(":module_musicPlayer"))
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-rx3:1.9.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")

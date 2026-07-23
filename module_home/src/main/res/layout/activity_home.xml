@@ -31,6 +31,7 @@
             android:src="@drawable/home_drawer" />
 
         <TextView
+            android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"

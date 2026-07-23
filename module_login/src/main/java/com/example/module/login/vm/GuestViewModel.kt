@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.module.login.repo.GuestRepository
+import com.example.musicPlayer.util.UidManager
 import com.wavvy.net.CookieManager
 import com.wavvy.net.CookieUtil
 import kotlinx.coroutines.Dispatchers
@@ -39,6 +40,7 @@ class GuestViewModel : ViewModel(){
                             CookieManager.saveCookie(cleanCookie)
                         }
                     }
+                    UidManager.saveUid(response.userId)
                     _status.value = "登录成功"
                     _loginSuccess.value = true
                 } else {

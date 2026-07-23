@@ -13,6 +13,10 @@ object RoutePath {
     const val FRAG_TOP="/top/fragment"
     const val MAIN="/app/main"
     const val HOME="/home/main"
-    const val QR="/login/qr"
+    const val MY="/home/my"
     const val LOGIN="/login/main"
+
+    const val PLAYER="/player/main"
+    const val LIKE="/player/like"
+    const val HISTORY="/player/history"
 }
