@@ -5,56 +5,56 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lib.common.BaseFragment
 import com.example.module_seek.R
+import com.example.module_seek.databinding.FragmentSingleBinding
+import com.wavvy.seek.adapter.SingleAdapter
+import com.wavvy.seek.viewmodel.SeekResultViewModel
+class SingleFragment : BaseFragment<FragmentSingleBinding>(){
+    override fun getViewBinding(): FragmentSingleBinding {
+        return FragmentSingleBinding.inflate(layoutInflater)
+    }
+    private var keyword: String?=null
+    private val viewModel  by lazy {
+        ViewModelProvider(this)[SeekResultViewModel::class.java]
+    }
+    private val singleAdapter by lazy {
+        SingleAdapter()
+    }
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+    override fun initEvent() {
+        binding.rvSingle.adapter=singleAdapter
+        binding.rvSingle.layoutManager= LinearLayoutManager(requireContext())
+        keyword?.let {
+            viewModel.upSingleData(it)
+        }
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SingleFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SingleFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        keyword = arguments?.getString("keyword") ?: ""
+
+    }
+
+
+    override fun observeData() {
+       viewModel.singleData.observe(this@SingleFragment){
+           singleAdapter.submitList( it.result.songs)
+       }
+
+    }
+    //储存搜索词，防止页面重建参数丢失
+    companion object {
+        fun newInstance(keyword: String?): SingleFragment {
+            val fragment = SingleFragment()
+            fragment.arguments = Bundle().apply {
+                putString("keyword", keyword)
+            }
+            return fragment
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_single, container, false)
-    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SingleFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SingleFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

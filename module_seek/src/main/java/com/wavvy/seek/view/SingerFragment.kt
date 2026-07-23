@@ -5,56 +5,58 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lib.common.BaseFragment
 import com.example.module_seek.R
+import com.example.module_seek.databinding.FragmentSingerBinding
+import com.wavvy.seek.adapter.SingerAdapter
+import com.wavvy.seek.viewmodel.SeekResultViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class SingerFragment : BaseFragment<FragmentSingerBinding>(){
+    private val viewModel by lazy {
+        ViewModelProvider(this)[SeekResultViewModel::class.java]
+    }
+    private val singerAdapter by lazy{
+        SingerAdapter(requireContext())
+    }
+    private var keyword: String? = null
+    override fun getViewBinding(): FragmentSingerBinding {
+        return FragmentSingerBinding.inflate(layoutInflater)
+    }
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SingerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SingerFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    override fun initEvent() {
+       initView()
+      keyword?.let {
+          viewModel.upSingerData(it)
+      }
 
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        keyword = arguments?.getString("keyword") ?: ""
+
+
+    }
+
+    override fun observeData() {
+        viewModel.singerData.observe(this@SingerFragment){
+            singerAdapter.submitList(it.result.artists)
+        }
+    }
+    fun initView(){
+        binding.rvSeekSinger.adapter=singerAdapter
+        binding.rvSeekSinger.layoutManager= LinearLayoutManager(requireContext())
+    }
+    //
+    companion object{
+        fun newInstance(keyword: String?):SingerFragment{
+            val fragment= SingerFragment()
+            fragment.arguments = Bundle().apply {
+                putString("keyword", keyword)
+            }
+            return fragment
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_singer, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SingerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SingerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

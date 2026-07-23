@@ -42,6 +42,10 @@ class TopFragment : BaseFragment<FragmentTopBinding>() {
 
         }
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
 
     override fun getViewBinding(): FragmentTopBinding {
         return  FragmentTopBinding.inflate(layoutInflater)
@@ -56,26 +60,7 @@ class TopFragment : BaseFragment<FragmentTopBinding>() {
             ARouter.getInstance()
                 .build(RoutePath.WEB)
                 .withString("url", bannerList.url)
-                .navigation(requireContext(), object : NavigationCallback {
-
-                    override fun onFound(postcard: Postcard?) {
-                        Log.d("ARouter_debug", "【找到路由】: ${postcard?.path}")
-                    }
-
-                    override fun onLost(postcard: Postcard?) {
-                        // ⚠️ 如果控制台输出了这一行，代表 ARouter 的全局路由表内没有这个页面
-                        Log.e("ARouter_debug", "【失败】找不到路由节点，说明注册失效了！")
-                    }
-
-                    override fun onArrival(postcard: Postcard?) {
-                        // ⚠️ 如果控制台输出了这一行，代表 ARouter 已经成功发起跳转，但 Activity 没打开
-                        Log.d("ARouter_debug", "【成功】ARouter 已经向系统发送了跳转指令")
-                    }
-
-                    override fun onInterrupt(postcard: Postcard?) {
-                        Log.e("ARouter_debug", "【拦截】跳转被拦截器拦截")
-                    }
-                })
+                .navigation(requireContext())
         }
     }
 

@@ -57,9 +57,7 @@ class BannerAdapter(private val context: Context):
     }
     inner class ViewHolder(binding: ItemBannerBinding): RecyclerView.ViewHolder(binding.root){
         private val imageBanner=binding.ivBanner
-        private var currentData : BannerList?=null
         fun bind(data: BannerList){
-            currentData=data
             Glide.with(context).load(data.pic).into(imageBanner)
         }
         init {

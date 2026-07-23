@@ -22,10 +22,11 @@ class SeekViewModel: ViewModel() {
     val musicRankDataList: LiveData<List<MusicRankData>> =_musicRankDataList
     fun upMusicRank(){
         viewModelScope.launch {
-            val list=mutableListOf<MusicRankData>()
-            seekModel.fetchMusicRank().collect { data->
-                list.add(data)
-                _musicRankDataList.postValue(list.toList())
+            try {
+                val allData = seekModel.fetchMusicRank()
+                _musicRankDataList.value = allData
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

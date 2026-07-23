@@ -15,7 +15,7 @@ data class MvData (
 )
 data class Mv(
     @SerializedName("artists") val artists: List<ArtistSinger>,
-    @SerializedName("cover") val cover: String,
+    @SerializedName("cover") val cover: String,//封面
     @SerializedName("duration") val duration: Long,
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,

@@ -1,9 +1,12 @@
 package com.wavvy.seek.adapter
 
+import android.content.Context
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.module_seek.databinding.ItemSonglistBinding
 import com.wavvy.seek.data.Playlists
 
@@ -14,7 +17,7 @@ import com.wavvy.seek.data.Playlists
  * @CreateTime : 2026/7/20 19:06
  * @Desc       : 
  */
-class SongListAdapter: ListAdapter<Playlists, SongListAdapter.ViewHolder>(object : DiffUtil.ItemCallback<Playlists>(){
+class SongListAdapter(private val context: Context): ListAdapter<Playlists, SongListAdapter.ViewHolder>(object : DiffUtil.ItemCallback<Playlists>(){
     override fun areItemsTheSame(
         oldItem: Playlists,
         newItem: Playlists
@@ -34,17 +37,22 @@ class SongListAdapter: ListAdapter<Playlists, SongListAdapter.ViewHolder>(object
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        TODO("Not yet implemented")
+        return ViewHolder(binding = ItemSonglistBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int
     ) {
-        TODO("Not yet implemented")
+        holder.bind(getItem(position))
     }
 
     inner class ViewHolder(binding: ItemSonglistBinding): RecyclerView.ViewHolder(binding.root){
-
+        val tvSongName=binding.tvSongName
+        val ivSongImg=binding.ivListImg
+        fun bind(data: Playlists){
+            tvSongName.text=data.name
+            Glide.with(context).load(data.coverImgUrl).into(ivSongImg)
+        }
     }
 }

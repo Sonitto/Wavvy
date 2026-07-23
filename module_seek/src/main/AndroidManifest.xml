@@ -3,6 +3,9 @@
 
     <application>
         <activity
+            android:name="com.wavvy.seek.view.SingerDetailActivity"
+            android:exported="false" />
+        <activity
             android:name="com.wavvy.seek.view.MvActivity"
             android:exported="false" />
         <activity

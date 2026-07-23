@@ -1,60 +1,56 @@
 package com.wavvy.seek.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.example.module_seek.R
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lib.common.BaseFragment
+import com.example.module_seek.databinding.FragmentSongListBinding
+import com.wavvy.seek.adapter.SongListAdapter
+import com.wavvy.seek.viewmodel.SeekResultViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class SongListFragment : BaseFragment<FragmentSongListBinding>(){
+    override fun getViewBinding(): FragmentSongListBinding {
+        return FragmentSongListBinding.inflate(layoutInflater)
+    }
+    private var keyword: String?=null
+    private val viewModel  by lazy {
+        ViewModelProvider(this)[SeekResultViewModel::class.java]
+    }
+    private val songListAdapter by lazy {
+        SongListAdapter(requireContext())
+    }
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SongListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SongListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    override fun initEvent() {
+        binding.rvSongList.adapter=songListAdapter
+        binding.rvSongList.layoutManager= LinearLayoutManager(requireContext())
+        keyword?.let {
+            viewModel.upSingleData(it)
+        }
 
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        keyword = arguments?.getString("keyword") ?: ""
+
+    }
+
+
+    override fun observeData() {
+        viewModel.songData.observe(this@SongListFragment){
+            songListAdapter.submitList( it.result.playlists)
+        }
+
+    }
+    //储存搜索词，防止页面重建参数丢失
+    companion object {
+        fun newInstance(keyword: String?): SingleFragment {
+            val fragment = SingleFragment()
+            fragment.arguments = Bundle().apply {
+                putString("keyword", keyword)
+            }
+            return fragment
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_song_list, container, false)
-    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SongListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SongListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

@@ -8,7 +8,7 @@
         android:id="@+id/iv_ranks"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="170dp"
+        android:layout_width="160dp"
         android:scaleType="centerCrop"
          app:shapeAppearanceOverlay="@style/ItemCorner"
         android:layout_height="100dp"/>

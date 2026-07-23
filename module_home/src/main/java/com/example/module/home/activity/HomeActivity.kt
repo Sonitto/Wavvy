@@ -85,7 +85,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         VpAdapter.setFragments(
             listOf<Fragment>(
                 TopFragment(),
-                BlankFragment(),
                 MyFragment()
             )
         )

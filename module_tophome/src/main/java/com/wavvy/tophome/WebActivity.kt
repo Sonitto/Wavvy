@@ -19,7 +19,7 @@ import com.example.module_tophome.databinding.ActivityWebBinding
 class WebActivity : BaseActivity<ActivityWebBinding>() {
     @JvmField
     @Autowired(name = "url")
-    var url: String? = null
+    var urls: String? = null
     override fun getViewBinding(): ActivityWebBinding {
        return ActivityWebBinding.inflate(layoutInflater)
     }
@@ -35,7 +35,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
             settings.cacheMode = WebSettings.LOAD_NO_CACHE
             settings.javaScriptEnabled = true
             webViewClient = WebViewClient()
-            url?.let {
+            urls?.let {
                 loadUrl(it)
             }
         }

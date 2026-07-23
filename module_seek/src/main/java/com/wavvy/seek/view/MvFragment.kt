@@ -1,60 +1,57 @@
 package com.wavvy.seek.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.example.module_seek.R
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lib.common.BaseFragment
+import com.example.module_seek.databinding.FragmentMvBinding
+import com.wavvy.seek.adapter.SeekMvAdapter
+import com.wavvy.seek.viewmodel.SeekResultViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class MvFragment : BaseFragment<FragmentMvBinding>(){
+    private val viewModel by lazy {
+        ViewModelProvider(this)[SeekResultViewModel::class.java]
+    }
+    private val mvAdapter by lazy{
+        SeekMvAdapter(requireContext())
+    }
+    private var keyword: String? = null
+    override fun getViewBinding(): FragmentMvBinding{
+        return FragmentMvBinding.inflate(layoutInflater)
+    }
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MvFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MvFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    override fun initEvent() {
+        initView()
+        keyword?.let {
+            viewModel.upMvData(it)
+        }
 
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        keyword = arguments?.getString("keyword") ?: ""
+
+
+    }
+
+    override fun observeData() {
+        viewModel.mvData.observe(this@MvFragment){
+            mvAdapter.submitList(it.result)
+        }
+    }
+    fun initView(){
+        binding.rvMv.adapter=mvAdapter
+        binding.rvMv.layoutManager= LinearLayoutManager(requireContext())
+    }
+    //
+    companion object{
+        fun newInstance(keyword: String?): MvFragment{
+            val fragment= MvFragment()
+            fragment.arguments = Bundle().apply {
+                putString("keyword", keyword)
+            }
+            return fragment
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mv, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MvFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MvFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

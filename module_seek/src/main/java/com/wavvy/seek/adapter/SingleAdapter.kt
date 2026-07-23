@@ -46,8 +46,11 @@ class SingleAdapter: ListAdapter<Songs, SingleAdapter.ViewHolder>(object : DiffU
         holder.bind(getItem(position))
     }
     inner class ViewHolder(binding: ItemSingleBinding): RecyclerView.ViewHolder(binding.root){
+        private var tvSongName=binding.tvSingleName
+        private var tvSongAuthor=binding.singleAuthor
         fun bind(data: Songs){
-
+            tvSongAuthor.text=data.getSinger()
+            tvSongName.text=data.name
         }
     }
 }
