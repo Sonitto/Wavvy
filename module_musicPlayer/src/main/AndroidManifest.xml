@@ -3,15 +3,19 @@
 
     <application>
         <activity
+            android:name="com.example.musicPlayer.activity.CommentActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.musicPlayer.activity.PlayerActivity"
             android:exported="false" />
         <activity
             android:name="com.example.musicPlayer.activity.PlaylistActivity"
             android:exported="false" />
+
         <service
             android:name="com.example.musicPlayer.util.MusicService"
-            android:foregroundServiceType="mediaPlayback"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
     </application>
 
 </manifest>

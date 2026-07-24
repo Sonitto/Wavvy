@@ -12,7 +12,6 @@ class PlaylistActivity : BaseActivity<ActivityPlaylistBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
         val type = intent.getStringExtra("type")
         val fragment = when (type) {

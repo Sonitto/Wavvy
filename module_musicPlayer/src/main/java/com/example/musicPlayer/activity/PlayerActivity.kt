@@ -28,12 +28,10 @@ class PlayerActivity : BaseActivity<ActivityPlayerBinding>() {
         ARouter.getInstance().inject(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
         val song = intent.getParcelableExtra<Song>("song")
         if (song != null) {
             updateSongInfo(song)
         }
-
         registerReceiver(songChangeReceiver, IntentFilter(MusicService.BROADCAST_SONG_CHANGE))
         registerReceiver(progressReceiver, IntentFilter(MusicService.BROADCAST_PROGRESS))
     }
@@ -65,12 +63,18 @@ class PlayerActivity : BaseActivity<ActivityPlayerBinding>() {
             override fun onStartTrackingTouch(slider: Slider) {
                isDragging=true
             }
-        //发送seek:位置指令到 Service，跳转到指定时间点
+            //发送seek:位置指令到 Service，跳转到指定时间点
             override fun onStopTrackingTouch(slider: Slider) {
                 isDragging=false
                 MusicService.action?.invoke("seek:${slider.value.toLong()}")
             }
         })
+        //
+        binding.btnComment.setOnClickListener {
+            val intent=Intent(this, CommentActivity::class.java)
+            intent.putExtra("songId",currentSong?.id)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroy() {
@@ -78,6 +82,7 @@ class PlayerActivity : BaseActivity<ActivityPlayerBinding>() {
         unregisterReceiver(songChangeReceiver)
         unregisterReceiver(progressReceiver)
     }
+    //处理歌曲切换
     private val songChangeReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val song = intent?.getParcelableExtra<Song>("song") ?: return

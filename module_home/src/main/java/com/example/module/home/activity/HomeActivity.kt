@@ -1,21 +1,26 @@
 package com.example.module.home.activity
 
-import androidx.fragment.app.Fragment
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.bumptech.glide.Glide
 import com.example.lib.common.BaseActivity
 import com.example.lib.route.RoutePath
-import com.example.module.home.activity.ViewModel.UserViewModel
-import com.example.module.home.databinding.ActivityHomeBinding
 import com.example.module.home.R
-import com.bumptech.glide.Glide
+import com.example.module.home.activity.ViewModel.UserViewModel
 import com.example.module.home.activity.adapter.HomeVPAdapter
+import com.example.module.home.databinding.ActivityHomeBinding
 import com.example.module_find.BlankFragment
 import com.wavvy.tophome.TopFragment
 
@@ -25,12 +30,23 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
     override fun getViewBinding(): ActivityHomeBinding = ActivityHomeBinding.inflate(layoutInflater)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //强制使导航栏tab不被系统默认主题上色
         binding.navHome.itemIconTintList = null
         binding.navHome.itemRippleColor = null
-        //初始化主页面三个fragment
         setupVP()
+        requestNotifPermission()
     }
+
+    private fun requestNotifPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
+
+    private val launcher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
     override fun onResume() {
         super.onResume()

@@ -153,7 +153,7 @@ class MusicService: Service() {
                 sendBroadcast(Intent(BROADCAST_PROGRESS).apply {
                     putExtra("position", player.currentPosition)
                     putExtra("duration", player.duration)
-                    putExtra("isPlaying", player.isPlaying)
+                    putExtra("isPlaying", player.playWhenReady)
                 })
             } catch (e: Exception) {
                 Log.e("MusicService", "playSong failed: ${song.id} ${song.name}", e)
@@ -189,12 +189,8 @@ class MusicService: Service() {
         //添加通知上的按钮
         .addAction(R.drawable.ic_prev,"上一首",prev)
         .addAction(
-            if(player.isPlaying) R.drawable.ic_pause else R.drawable.ic_start,
-            if(player.isPlaying) {
-                "暂停"
-            } else {
-                "开始"
-            },
+            if (player.playWhenReady) R.drawable.ic_pause else R.drawable.ic_start,
+            if (player.playWhenReady) "暂停" else "开始",
             playPause
         )
         .addAction(R.drawable.ic_next,"下一首",next)
@@ -231,7 +227,7 @@ class MusicService: Service() {
                 sendBroadcast(Intent(BROADCAST_PROGRESS).apply {
                     putExtra("position", player.currentPosition)
                     putExtra("duration", player.duration)
-                    putExtra("isPlaying", player.isPlaying)
+                    putExtra("isPlaying", player.playWhenReady)
                 })
                 currentSong?.let { it ->
                     scope.launch {
@@ -282,7 +278,7 @@ class MusicService: Service() {
                 val intent = Intent(BROADCAST_PROGRESS).apply {
                     putExtra("position", player.currentPosition)
                     putExtra("duration", player.duration)
-                    putExtra("isPlaying", player.isPlaying)
+                    putExtra("isPlaying", player.playWhenReady)
                 }
                 sendBroadcast(intent)
                 delay(500)

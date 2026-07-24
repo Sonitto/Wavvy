@@ -66,6 +66,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation("androidx.recyclerview:recyclerview:1.4.0")
+    implementation("androidx.paging:paging-runtime-ktx:3.3.6")
     implementation(libs.arouter.api)
     kapt(libs.arouter.compiler)
 
