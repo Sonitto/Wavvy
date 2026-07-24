@@ -16,16 +16,21 @@ import kotlinx.coroutines.flow.flowOn
  * @Desc       :
  */
 class SeekModel{
-    private val api= RetrofitClient.create(SeekNetService::class.java)
-    fun fetchMusicRank(): Flow<MusicRankData> = flow {
+    private val api by lazy{
+        RetrofitClient.create(SeekNetService::class.java)
+    }
+    suspend fun fetchMusicRank(): List<MusicRankData> {
         val ids = listOf(19723756, 3779629, 2884035)
+        val resultList = mutableListOf<MusicRankData>()
+
         for (id in ids) {
             try {
                 val data = api.getMusicRank(id)
-                emit(data)
+                resultList.add(data)
             } catch (e: Exception) {
                 println("单条请求失败，继续下一条：${e.message}")
             }
         }
-    }.flowOn(Dispatchers.IO)
+        return resultList
+    }
 }

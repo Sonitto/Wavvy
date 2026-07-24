@@ -2,6 +2,7 @@ package com.wavvy.seek.net
 
 import com.wavvy.seek.data.MusicRankData
 import com.wavvy.seek.data.MvData
+import com.wavvy.seek.data.MvUrlData
 import com.wavvy.seek.data.SeekLyricData
 import com.wavvy.seek.data.SeekSingerData
 import com.wavvy.seek.data.SingleData
@@ -49,5 +50,9 @@ interface SeekNetService {
     suspend fun getMusicRank(
         @Query("id")id: Int
     ): MusicRankData
+    @GET("mv/url")
+    suspend fun getMvUrl(
+        @Query("id")id:Long
+    ): MvUrlData
 
 }

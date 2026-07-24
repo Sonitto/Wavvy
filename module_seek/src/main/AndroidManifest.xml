@@ -3,6 +3,12 @@
 
     <application>
         <activity
+            android:name="com.wavvy.seek.view.SingerDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.wavvy.seek.view.MvPlayActivity"
+            android:exported="false" />
+        <activity
             android:name="com.wavvy.seek.view.SeekResultActivity"
             android:exported="false" />
         <activity

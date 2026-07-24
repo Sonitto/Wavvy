@@ -15,8 +15,10 @@
         android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="20dp"
+        android:id="@+id/rv_rank"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_hot_rank_name"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"/>
 
 

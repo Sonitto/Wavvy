@@ -67,7 +67,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
             true
         }
         binding.search.setOnClickListener {
-            ARouter.getInstance().build(RoutePath.FRAG_FIND)
+            ARouter.getInstance().build(RoutePath.SEEK).navigation()
         }
 
         // 整个 header 点击
@@ -104,6 +104,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
         VpAdapter.setFragments(
             listOf<Fragment>(
                 TopFragment(),
+                BlankFragment(),
                 MyFragment()
             )
         )

@@ -22,4 +22,7 @@ data class Songs(
     @SerializedName("artists") val artists: List<Artist>,
     @SerializedName("id") val id: Long,
     @SerializedName("name") val name: String,
-)
+){
+    // 拼接歌手名
+    fun getSinger(): String = artists.joinToString("/") { it.name }
+}

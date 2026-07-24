@@ -16,8 +16,8 @@ data class BannerData(
     val bannerList: List<BannerList>
 )
 data class BannerList(
-    @SerializedName("imageUrl")//图片
-    val imageUrl: String?,
+    @SerializedName("pic") //图片
+    val pic: String,
     @SerializedName("targetType")
     val targetType: Int?,
     @SerializedName("typeTitle")
